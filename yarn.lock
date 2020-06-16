@@ -1048,6 +1048,14 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@nepo/ndate@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@nepo/ndate/-/ndate-0.1.7.tgz#dfb982c2ee53014343e9f3bae8eeeff7484880d7"
+  integrity sha512-MslV9uH2sLtgST09J11OyJOsnDlKjVNfEWP26PMBmqXPxDHbiVJmx9qeCbgdfskQoraHCeqY/VGUFWPxchMs3g==
+  dependencies:
+    date-fns "1.30.1"
+    jalaali-js "1.1.0"
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -2071,6 +2079,11 @@ csstype@^2.2.0:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
   integrity sha512-D34BqZU4cIlMCY93rZHbrq9pjTAQJ3U8S8rfBqjwHxkGPThWFjzZDQpgMJY0QViLxth6ZKYiwFBo14RdN44U/w==
 
+date-fns@1.30.1:
+  version "1.30.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
+  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+
 dayjs@^1.8.15:
   version "1.8.28"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.28.tgz#37aa6201df483d089645cb6c8f6cef6f0c4dbc07"
@@ -3083,6 +3096,11 @@ isomorphic-fetch@^2.1.1:
   dependencies:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
+
+jalaali-js@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jalaali-js/-/jalaali-js-1.1.0.tgz#f0e942049273d11f7298a992356fc36ce2784863"
+  integrity sha512-eznOFGRtHb0ttHkHf8pVYPVfKJdbOqutTwcQYACbv91Q2NiYgnM5Z6+NN/8FMAhuMDAXAmeAG9+UBzqVKdA4cg==
 
 jest-get-type@^24.9.0:
   version "24.9.0"

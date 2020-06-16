@@ -15,6 +15,17 @@ export const MONTH_NAMES = [
     "November",
     "December",
 ];
+
+export const dayName = [
+    { id: "1", title: "mon" },
+    { id: "2", title: "thu" },
+    { id: "3", title: "wen" },
+    { id: "4", title: "thr" },
+    { id: "5", title: "fri" },
+    { id: "6", title: "sat" },
+    { id: "7", title: "sun" },
+];
+
 export const YEARS = (currentYear: number): number[] => {
     let ys: number[] = [];
     for (let y = currentYear + 10; y > 1970; y--) {

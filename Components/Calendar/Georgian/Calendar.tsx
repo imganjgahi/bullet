@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Button, Modal, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { dayName } from './utils';
 
 interface IProps {
     visible: boolean;
@@ -7,63 +8,36 @@ interface IProps {
 }
 const GeoCalendar = (props: IProps) => {
 
-    const dayName = [
-        { id: "1", title: "mon" },
-        { id: "2", title: "thu" },
-        { id: "3", title: "wen" },
-        { id: "4", title: "thr" },
-        { id: "5", title: "fri" },
-        { id: "6", title: "sat" },
-        { id: "7", title: "sun" },
-    ]
-    const days = [
-        { id: "1", num: 1 },
-        { id: "2", num: 2 },
-        { id: "3", num: 3 },
-        { id: "4", num: 4 },
-        { id: "5", num: 5 },
-        { id: "6", num: 6 },
-        { id: "7", num: 7 },
-        { id: "8", num: 8 },
-        { id: "9", num: 9 },
-        { id: "10", num: 10 },
-    ]
-    if (!props.visible) {
-        return null
-    }
+    
+    
     return (
         <React.Fragment>
-             <View style={styles.header}>
-                        <Text style={styles.headerText}> Header </Text>
-                        <View style={styles.nextBeforeRow}>
-                        <TouchableOpacity style={{...styles.monthHandlerBtn, ...styles.PrevBtn}}>
-                                <Text> {"<<"} </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{...styles.monthHandlerBtn, ...styles.nextBtn}}>
-                                <Text> {">>"} </Text>
-                            </TouchableOpacity>
-                            
-                        </View>
-                    </View>
-                    <View style={styles.daysContainer}>
-                        {dayName.map(dayName => {
-                            return (
-                                <Text key={"name" + dayName.id} style={styles.cols}> {dayName.title} </Text>
-                            )
-                        })}
-                        {days.map(day => {
-                            return (
-                                <Text key={day.id} style={styles.cols}> {day.num} </Text>
-                            )
-                        })}
-                    </View>  
+            <View style={styles.header}>
+                <Text style={styles.headerText}> Header </Text>
+                <View style={styles.nextBeforeRow}>
+                    <TouchableOpacity style={{ ...styles.monthHandlerBtn, ...styles.PrevBtn }}>
+                        <Text> {"<<"} </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ ...styles.monthHandlerBtn, ...styles.nextBtn }}>
+                        <Text> {">>"} </Text>
+                    </TouchableOpacity>
+
+                </View>
+            </View>
+            <View style={styles.daysContainer}>
+                {dayName.map(dayName => {
+                    return (
+                        <Text key={"name" + dayName.id} style={styles.cols}> {dayName.title} </Text>
+                    )
+                })}
+            </View>
         </React.Fragment>
-     )
+    )
 }
 
 
 const styles = StyleSheet.create({
-    
+
     header: {
         height: 120,
         backgroundColor: "royalblue",

@@ -15,6 +15,15 @@ export const MONTH_NAMES = [
     "بهمن",
     "اسفند",
 ];
+export  const dayName = [
+    { id: "1", title: "ش" },
+    { id: "2", title: "ی" },
+    { id: "3", title: "د" },
+    { id: "4", title: "س" },
+    { id: "5", title: "چ" },
+    { id: "6", title: "پ" },
+    { id: "7", title: "ج" },
+]
 export const YEARS = (currentYear: number): number[] => {
     let ys: number[] = [];
     for (let y = currentYear + 10; y > 1300; y--) {

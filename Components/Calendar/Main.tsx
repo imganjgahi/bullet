@@ -6,19 +6,22 @@ import PersianCalendar from './Persian/Clanedar';
 interface IProps {
     visible: boolean;
     onClose: () => void;
+    initialValue: Date;
 }
 const Calendar = (props: IProps) => {
-
-    const [calendarType, setCalendarType] = React.useState<string>("persian")
+    const theDate = props.initialValue ? props.initialValue : new Date()
+    const [calendarType, setCalendarType] = React.useState<string>("persian");
+    const [dateTimeValue, setDateTimeValue] = React.useState<Date>(theDate)
     if (!props.visible) {
         return null
     }
+        
     return (
         <Modal transparent={true} animationType="slide" visible={props.visible}>
             <View style={styles.container}>
                 <View style={styles.calendarView}>
                 {calendarType === "persian" ? (
-                    <PersianCalendar {...props} />
+                    <PersianCalendar {...props} mainDate={dateTimeValue} />
                 ) : (
                     <GeoCalendar {...props} />
                 )}
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     calendarView: {
-        width: "90%",
+        width: "80%",
         maxWidth: 350,
         backgroundColor: "#fff",
         borderColor: "black",
