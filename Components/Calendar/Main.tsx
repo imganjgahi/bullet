@@ -17,7 +17,7 @@ const Calendar = (props: IProps) => {
     }
         
     return (
-        <Modal transparent={true} animationType="slide" visible={props.visible}>
+        <Modal transparent={true} animationType="fade" visible={props.visible}>
             <View style={styles.container}>
                 <View style={styles.calendarView}>
                 {calendarType === "persian" ? (
