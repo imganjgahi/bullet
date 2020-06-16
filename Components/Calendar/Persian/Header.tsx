@@ -5,6 +5,8 @@ import { MONTH_NAMES } from "./utils";
 interface IProps {
     nextMonth: () => void;
     prevMonth: () => void;
+    showMonthBlock: () => void;
+    showYearBlock: () => void;
     year: number;
     month: number;
 }
@@ -21,6 +23,15 @@ const CalendarHeader = (props: IProps) => {
                     >
                             <Text> {"<<"} </Text>
                         </TouchableOpacity>
+                        <View style={styles.selected}>
+                            <TouchableOpacity 
+                            onPress={props.showMonthBlock}
+                            ><Text style={styles.txt}>ماه </Text></TouchableOpacity>
+                            <Text  style={styles.txt}> / </Text>
+                            <TouchableOpacity 
+                            onPress={props.showYearBlock}
+                            ><Text style={styles.txt}> سال </Text></TouchableOpacity>
+                        </View>
                         <TouchableOpacity style={{...styles.monthHandlerBtn, ...styles.nextBtn}}
                         onPress={props.nextMonth}
                         >
@@ -67,6 +78,14 @@ const styles = StyleSheet.create({
     PrevBtn: {
         borderTopRightRadius: 20
     },
+    selected: {
+        flexDirection: "row-reverse",
+    },
+    txt: {
+        fontSize: 18,
+        color: "#fff",
+        fontFamily: "shabnam"
+    }
 });
 
 export default CalendarHeader

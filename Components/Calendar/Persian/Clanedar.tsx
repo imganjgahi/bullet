@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { dayName, MONTH_DAYS } from "./utils";
+import { MONTH_DAYS } from "./utils";
 import NDate from "@nepo/ndate";
 import CalendarHeader from './Header';
+import DaysBlock from './DaysBlock';
+import MonthsBlock from './MonthsBlock';
+import YearsBlock from './YearsBlock';
 interface IProps {
     visible: boolean;
     onClose: () => void;
@@ -42,6 +44,7 @@ const createMonth = (year: number, month: number) => {
 
 const PersianCalendar = (props: IProps) => {
 
+   const [viewMode, setViewMode] = React.useState<string>("days")
    const [daysObj, setDaysObj] = React.useState<any[]>([])
    const [referenceDate, setReferenceDate] = React.useState<NDate>(new NDate())
 
@@ -65,6 +68,7 @@ const PersianCalendar = (props: IProps) => {
         }
         setReferenceDate(new NDate([theYear, theMonth, 1]))
         setDaysObj(createMonth(theYear, theMonth))
+        setViewMode("days")
     }
     const prevMonthHandler = () => {
         const newDate = referenceDate
@@ -77,47 +81,42 @@ const PersianCalendar = (props: IProps) => {
         }
         setReferenceDate(new NDate([theYear, theMonth, 1]))
         setDaysObj(createMonth(theYear, theMonth))
+        setViewMode("days")
+    }
+    const monthSelectedHandler= (month: number) => {
+        const newDate = new NDate ([referenceDate.yearJalali, month, 1])
+        setReferenceDate(newDate)
+        setDaysObj(createMonth(referenceDate.yearJalali, month))
+        setViewMode("days")
+    }
+    const yearSeletedHandler= (year: number) => {
+        const newDate = new NDate ([year, referenceDate.monthJalali, 1])
+        setReferenceDate(newDate)
+        setDaysObj(createMonth(year, referenceDate.monthJalali))
+        setViewMode("months")
     }
     return (
         <React.Fragment>
                     <CalendarHeader 
                     year={referenceDate.yearJalali}
                     month= {referenceDate.monthJalali}
+                    showMonthBlock={() => setViewMode("months")}
+                    showYearBlock={() => setViewMode("years")}
                     nextMonth={nextMonthHandler}
                     prevMonth={prevMonthHandler}
-                    />
-                    <View style={styles.daysContainer}>
-                        {dayName.map(dayName => {
-                            return (
-                                <Text key={"name" + dayName.id} style={styles.cols}> {dayName.title} </Text>
-                            )
-                        })}
-                        {daysObj.map((dayInfo: any, i) => {
-                            if(!dayInfo){
-                                return <Text key={i} style={styles.cols}>  </Text>
-                            }
-
-                            return <Text key={i} style={styles.cols}> {dayInfo.dayJalali} </Text>
-                        })}
-                    </View>  
+                    /> 
+                    {viewMode === "days" && <DaysBlock
+                    daysObj={daysObj}
+                    />}
+                    {viewMode === "months" && <MonthsBlock
+                        onSelectMonth={monthSelectedHandler}
+                    />}
+                    {viewMode === "years" && <YearsBlock
+                        currentYear={referenceDate.yearJalali}
+                        onSelectYear={yearSeletedHandler}
+                    />}
         </React.Fragment>
      )
 }
-
-
-const styles = StyleSheet.create({
-    
-    daysContainer: {
-        width: "100%",
-        flexDirection: "row-reverse",
-        flexWrap: "wrap",
-    },
-    cols: {
-        width: 100 / 7 + "%",
-        height: 40,
-        textAlign: "center",
-        fontFamily: "shabnam"
-    }
-});
 
 export default PersianCalendar
