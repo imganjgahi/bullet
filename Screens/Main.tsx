@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IApplicationState } from '../store/state';
+import Calendar from '../Components/Calendar/Main';
 
 
 const MainPage = () => {
 
+    const [calStatus, showCal] = React.useState<boolean>(false)
     const auth = useSelector((state:IApplicationState) => state.auth.isAuth)
     return (
-        <View>
+        <View style={styles.container}>
+            <Calendar visible={calStatus} onClose={() => showCal(false)} />
             <Text> Main Page </Text>
+            <Button title="Calendar" onPress={() => showCal(true)} />
         </View>
     )
 }
