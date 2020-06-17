@@ -15,10 +15,8 @@ const StartupScreen = (props: IProps) => {
             const isAuth = await AsyncStorage.getItem("bullet")
             if(isAuth){
                 dispatch(AuthActions.setIsAuth(true))
-                props.navigation.navigate("Home")
             } else {
                 dispatch(AuthActions.setIsAuth(false))
-                props.navigation.navigate("Auth")
             }
         }
 

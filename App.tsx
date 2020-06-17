@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider, useSelector } from "react-redux";
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
 import configureStore from "./store/configStore";
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
-import MainNav from './Navigator/Manage';
+import Navigator from './Navigator/Manage';
 const initialState = {}
 const store = configureStore(initialState);
 
@@ -30,7 +29,7 @@ export default function App() {
   }
 
   return (
-    <Provider store={store}><NavigationContainer><MainNav /></NavigationContainer></Provider>
+    <Provider store={store}><Navigator /></Provider>
   );
 }
 

@@ -7,6 +7,7 @@ import RegisterScreen from '../Screens/Auth/Register';
 import LoginScreen from '../Screens/Auth/Login';
 import { APP_CONST } from '../utils/constants/AppConst';
 import StartupScreen from '../Screens/Startup';
+import { NavigationContainer } from '@react-navigation/native';
 
 
 const MainStack = createStackNavigator();
@@ -23,8 +24,6 @@ const StartupStack = () => {
 
 const AuthNav = () => {
 
-    const auth = useSelector((state: IApplicationState) => state.auth.isAuth)
-
     return (
         <Stack.Navigator screenOptions={{
             headerTitleStyle: {
@@ -34,7 +33,7 @@ const AuthNav = () => {
             }
         }}>
             <Stack.Screen name="Login" component={LoginScreen} options={{
-                title: "Bullet"
+                title: "ورود"
             }} />
             <Stack.Screen name="Register" component={RegisterScreen} options={{
                 title: "ثبت نام"
@@ -44,18 +43,22 @@ const AuthNav = () => {
     )
 }
 const MainNav = () => {
-    
-    const auth = useSelector((state: IApplicationState) => state.auth)
     return (
         <MainStack.Navigator>
-            {!auth.authChecking && <MainStack.Screen name="Start" component={StartupStack} />}
-            {!auth.isAuth && auth.authChecking && <MainStack.Screen name="Auth" component={AuthNav} />}
-            {auth.isAuth && <MainStack.Screen name="Home" component={MainPage} options={{
+            <MainStack.Screen name="Home" component={MainPage} options={{
                             title: "BULLET"
-                        }} />}
+                        }} />
         </MainStack.Navigator>
     )
 }
 
+const Navigator = () => {
+    const auth = useSelector((state: IApplicationState) => state.auth)
+    return (<NavigationContainer> 
+            {!auth.authChecking && <StartupStack />}
+            {!auth.isAuth && auth.authChecking && <AuthNav />}
+            {auth.isAuth && <MainNav />}
+         </NavigationContainer>)
+}
 
-export default MainNav
+export default Navigator
