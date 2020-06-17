@@ -1,16 +1,18 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { APP_CONST } from '../../utils/constants/AppConst';
 import CustomButton from '../../Components/Buttons/CustomButton';
 import Calendar from '../../Components/Calendar/Main';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewTask } from '../../actions/Tasks/action';
+import { IApplicationState } from '../../store/state';
 
 
 
 interface IFormData {
   title: string;
   description: string;
-  status: string;
   startDate: Date;
   endDate: Date;
   label: string;
@@ -20,7 +22,6 @@ const TaskFormScreen = (props: any) => {
   const [formData, setFormData] = React.useState<IFormData>({
       title: "",
       description: "",
-      status: "",
       startDate: new Date(),
       endDate:  new Date(),
       label: "",
@@ -33,8 +34,13 @@ const TaskFormScreen = (props: any) => {
       })
   }
 
+  
+  const dispatch = useDispatch();
+  const tasks = useSelector((state: IApplicationState) => state.tasks)
   const onOk = () => {
-
+    dispatch(createNewTask(formData, () => {
+        props.navigation.navigate("Tasks")
+    }))
   }
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -89,7 +95,8 @@ const TaskFormScreen = (props: any) => {
                     onChangeText={(value) => onChangeHandler("label", value)} />
                 </View>
                 <View style={{width: "70%"}}>
-                    <CustomButton onPress={onOk}>ثبت</CustomButton>
+                    {tasks.loading ? <ActivityIndicator color="blue" /> : 
+                    <CustomButton onPress={onOk}>ثبت</CustomButton>}
                 </View>
             </View>
         </ScrollView>

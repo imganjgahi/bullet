@@ -9,6 +9,7 @@ import { APP_CONST } from '../utils/constants/AppConst';
 import StartupScreen from '../Screens/Startup';
 import { NavigationContainer } from '@react-navigation/native';
 import TaskFormScreen from '../Screens/Tasks/TaskForm';
+import TaskListScreen from '../Screens/Tasks/TasksList';
 
 
 const MainStack = createStackNavigator();
@@ -50,8 +51,11 @@ const MainNav = () => {
             <MainStack.Screen name="Home" component={MainPage} options={{
                             title: "BULLET"
                         }} />
+            <MainStack.Screen name="Tasks" component={TaskListScreen} options={{
+                            title: "وظایف"
+                        }} />
             <MainStack.Screen name="TaskForm" component={TaskFormScreen} options={{
-                            title: "مدیریت کارها"
+                            title: "مدیریت وظایف"
                         }} />
         </MainStack.Navigator>
     )

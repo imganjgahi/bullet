@@ -14,7 +14,9 @@ const MainPage = (props: any) => {
   return (
     <View style={styles.container}>
           <Calendar onChange={() => {}} />
-          <Text> Main Page </Text>
+          <Text> Tasks </Text>
+          <Button title="Task List" onPress={() => props.navigation.navigate("Tasks")} />
+          <Text> Add New Task </Text>
           <Button title="Add New Task" onPress={() => props.navigation.navigate("TaskForm")} />
           <Button title="LOGOUT" color="gold" onPress={() => dispatch(AuthActions.logOutRequest())} />
     </View>
