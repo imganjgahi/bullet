@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { dayName } from "./utils";
 import NDate from '@nepo/ndate';
 interface IProps {
-    daysObj: NDate[]
+    daysObj: NDate[],
+    onDaySelected: (day: NDate) => void
 }
 const DaysBlock = (props: IProps) => {
 
@@ -19,7 +20,10 @@ const DaysBlock = (props: IProps) => {
             if(!dayInfo){
                 return <Text key={i} style={styles.cols}>  </Text>
             }
-            return <Text key={i} style={styles.cols}> {dayInfo.dayJalali} </Text>
+            return <View key={i} style={styles.cols}><TouchableOpacity onPress={() => props.onDaySelected(dayInfo)}>
+                <Text style={styles.dayText}> {dayInfo.dayJalali} </Text>
+                </TouchableOpacity>
+                </View>
         })}
     </View> 
     )
@@ -36,6 +40,10 @@ const styles = StyleSheet.create({
     cols: {
         width: 100 / 7 + "%",
         height: 40,
+        textAlign: "center",
+        fontFamily: "shabnam"
+    },
+    dayText: {
         textAlign: "center",
         fontFamily: "shabnam"
     }

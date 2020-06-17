@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { dayName } from './utils';
 
 interface IProps {
-    visible: boolean;
-    onClose: () => void;
+    
 }
 const GeoCalendar = (props: IProps) => {
 

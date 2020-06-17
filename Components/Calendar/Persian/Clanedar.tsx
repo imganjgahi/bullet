@@ -6,9 +6,8 @@ import DaysBlock from './DaysBlock';
 import MonthsBlock from './MonthsBlock';
 import YearsBlock from './YearsBlock';
 interface IProps {
-    visible: boolean;
-    onClose: () => void;
     mainDate: Date;
+    onChange: (value: NDate) => void;
 }
 
 const createMonth = (year: number, month: number) => {
@@ -53,10 +52,7 @@ const PersianCalendar = (props: IProps) => {
        setReferenceDate(MainDate)
        setDaysObj(createMonth(MainDate.yearJalali, MainDate.monthJalali))
    }, [])
-    if (!props.visible) {
-        return null
-    }
-
+   
     const nextMonthHandler = () => {
         const newDate = referenceDate
         let theYear = newDate.yearJalali
@@ -106,6 +102,7 @@ const PersianCalendar = (props: IProps) => {
                     prevMonth={prevMonthHandler}
                     /> 
                     {viewMode === "days" && <DaysBlock
+                    onDaySelected={(value) => props.onChange(value)}
                     daysObj={daysObj}
                     />}
                     {viewMode === "months" && <MonthsBlock

@@ -7,16 +7,15 @@ import RegisterScreen from './Auth/Register';
 import { AuthActions } from '../actions/Auth/action';
 
 
-const MainPage = () => {
-
-  const [calStatus, showCal] = React.useState<boolean>(false)
+const MainPage = (props: any) => {
+  
   const auth = useSelector((state: IApplicationState) => state.auth.isAuth)
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
-          <Calendar visible={calStatus} onClose={() => showCal(false)} />
+          <Calendar onChange={() => {}} />
           <Text> Main Page </Text>
-          <Button title="Calendar" onPress={() => showCal(true)} />
+          <Button title="Add New Task" onPress={() => props.navigation.navigate("TaskForm")} />
           <Button title="LOGOUT" color="gold" onPress={() => dispatch(AuthActions.logOutRequest())} />
     </View>
   )
