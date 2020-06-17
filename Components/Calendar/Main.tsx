@@ -6,7 +6,7 @@ import PersianCalendar from './Persian/Clanedar';
 interface IProps {
     visible: boolean;
     onClose: () => void;
-    initialValue: Date;
+    initialValue?: Date;
 }
 const Calendar = (props: IProps) => {
     const theDate = props.initialValue ? props.initialValue : new Date()
