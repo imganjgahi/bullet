@@ -3,13 +3,9 @@ import { AuthActionTypes } from "./actionType";
 import { ActionModel, LoginType, RegisterType } from "./model";
 import { AuthApi } from "./api";
 import axios from '../../AxiosConfig';
+import { Alert } from "react-native";
 
 export const AuthActions = {
-
-    //open or close login modal 
-    toggleLoginModal: (open: boolean): AppAction<ActionModel> => (dispatch, getState) => {
-        dispatch({ type: AuthActionTypes.LoginModal, open  });
-    },
 
     //send request to server
     registerRequest: (data: RegisterType): AppAction<ActionModel> => async (dispatch, getState) => {
@@ -22,11 +18,13 @@ export const AuthActions = {
                 const loginData:LoginType = {email: data.email, password: data.password}
                 AuthActions.loginRequest(loginData)(dispatch, getState)
                 dispatch({type: AuthActionTypes.LoginSuccess})
+                console.log("registerRequest: ", res)
             }
         } catch (error) {
             //loagin perosses faild
+            console.log("registerRequesterror: ", error)
             dispatch({type: AuthActionTypes.LoginFail})
-            alert(error.response.data.message)
+            Alert.alert("Error: ", error.response)
         }
         
     },
@@ -45,8 +43,8 @@ export const AuthActions = {
             }
         } catch (error) {
             //loagin perosses faild
-            dispatch({type: AuthActionTypes.LoginFail})
-            alert(error.response.data.message)
+            dispatch({type: AuthActionTypes.LoginFail});
+            Alert.alert(error.response.data.message)
         }
         
     },

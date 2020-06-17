@@ -7,8 +7,8 @@ export const AuthApi = {
     login : async (data: LoginType) => {
         return axios.post(authUrl+ "/users/login", data)
     },
-
     register : async (data: LoginType) => {
+        console.log("authUrl : ", authUrl)
         return axios.post(authUrl+ "/users/register", data)
     }
 }

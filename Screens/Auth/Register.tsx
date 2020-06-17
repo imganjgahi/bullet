@@ -3,7 +3,8 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { APP_CONST } from '../../utils/constants/AppConst';
 import CustomButton from '../../Components/Buttons/CustomButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { useDispatch } from 'react-redux';
+import { AuthActions } from "../../actions/Auth/action"
 interface IProps {
     navigation: any;
 }
@@ -18,6 +19,7 @@ const RegisterScreen = (props: IProps) => {
         email: "",
         password: ""
     })
+    const dispatch = useDispatch()
 
     const onChangeHandler = (name: string, value: string) => {
         setFormData({
@@ -26,8 +28,7 @@ const RegisterScreen = (props: IProps) => {
         })
     }
     const registerHandler = () => {
-
-        console.log("DATA: ", formData)
+        dispatch(AuthActions.registerRequest(formData))
     }
     return (
         <View style={styles.container}>

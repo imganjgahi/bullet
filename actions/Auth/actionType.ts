@@ -1,5 +1,4 @@
 export enum AuthActionTypes {
-    LoginModal = "Auth/LoginModal",
 
     //Register
     Register = "Auth/Register",

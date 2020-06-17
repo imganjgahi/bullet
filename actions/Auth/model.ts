@@ -3,7 +3,7 @@ import {AuthActionTypes} from './actionType'
 
 
 export type RegisterType = {
-    fullName: string;
+    name: string;
     email: string;
     password: string;
 }
@@ -18,12 +18,6 @@ export interface IAuthState {
         loading: boolean;
         open: boolean;
     }
-}
-
-//login actionType
-interface ILoginModal extends Action<string> {
-    type: AuthActionTypes.LoginModal;
-    open: boolean;
 }
 
 //Register
@@ -54,8 +48,7 @@ interface ILogOut extends Action<string> {
     type: AuthActionTypes.LogOut;
 }
 
-export type ActionModel = ILoginModal
-    | IRegister
+export type ActionModel = IRegister
     | IRegisterSuccess
     | IRegisterFail
     | ILogin
