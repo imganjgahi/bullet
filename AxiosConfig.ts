@@ -1,4 +1,5 @@
-import Axios from 'axios'
+import Axios from 'axios';
+import { AsyncStorage } from "react-native";
 let AxiosInstance = Axios.create({
   headers: {
     'Content-Type': 'application/json',
@@ -8,7 +9,7 @@ let AxiosInstance = Axios.create({
 
 AxiosInstance.interceptors.request.use(
   config => {
-      const token = window.localStorage.getItem('Nili');
+      const token = AsyncStorage.getItem('bullet');
       console.log("axios")
       if (token) {
         console.log("token")

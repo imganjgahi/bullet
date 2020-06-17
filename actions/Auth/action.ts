@@ -1,3 +1,4 @@
+import { AsyncStorage } from "react-native";
 import { AppAction } from "../../store/state";
 import { AuthActionTypes } from "./actionType";
 import { ActionModel, LoginType, RegisterType } from "./model";
@@ -35,7 +36,7 @@ export const AuthActions = {
             if(res.data){
                 //login was succeed
                 //save token on loacalStorage
-                // window.localStorage.setItem("Nili", res.data.token);
+                AsyncStorage.setItem("bullet", res.data.token);
                 axios.defaults.headers.common['Authorization'] = `${res.data.token}` 
                 dispatch({type: AuthActionTypes.LoginSuccess})
             }
@@ -48,10 +49,14 @@ export const AuthActions = {
     },
 
 
+    setIsAuth: (status: boolean ): AppAction<ActionModel> => (dispatch, getState) => {
+        dispatch({type: AuthActionTypes.IsAuth, status});
+    },
+
     logOutRequest: (): AppAction<ActionModel> => (dispatch, getState) => {
         //remove token from storage and axios header
-        axios.defaults.headers.common['Authorization'] = "" 
-        // window.localStorage.removeItem("Nili");
+        axios.defaults.headers.common['Authorization'] = "" ;
+        AsyncStorage.removeItem("bullet");
         dispatch({type: AuthActionTypes.LogOut});
     }
 };

@@ -13,6 +13,7 @@ export type LoginType = {
 }
 
 export interface IAuthState {
+    authChecking: boolean;
     isAuth: boolean;
     authAction: {
         loading: boolean;
@@ -20,6 +21,10 @@ export interface IAuthState {
     }
 }
 
+interface IIsAuth extends Action<string> {
+    type: AuthActionTypes.IsAuth;
+    status: boolean
+}
 //Register
 interface IRegister extends Action<string> {
     type: AuthActionTypes.Register;
@@ -48,7 +53,8 @@ interface ILogOut extends Action<string> {
     type: AuthActionTypes.LogOut;
 }
 
-export type ActionModel = IRegister
+export type ActionModel = IIsAuth 
+    | IRegister
     | IRegisterSuccess
     | IRegisterFail
     | ILogin

@@ -1,5 +1,6 @@
 export enum AuthActionTypes {
 
+    IsAuth = "Auth/IsAuth",
     //Register
     Register = "Auth/Register",
     RegisterSuccess = "Auth/RegisterSuccess",

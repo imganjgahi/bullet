@@ -6,34 +6,54 @@ import { IApplicationState } from '../store/state';
 import RegisterScreen from '../Screens/Auth/Register';
 import LoginScreen from '../Screens/Auth/Login';
 import { APP_CONST } from '../utils/constants/AppConst';
+import StartupScreen from '../Screens/Startup';
 
 
+const MainStack = createStackNavigator();
+const Startup = createStackNavigator();
 const Stack = createStackNavigator();
 
-const MainNav = () => {
+const StartupStack = () => {
+    return (
+        <Startup.Navigator>
+            <Startup.Screen name="Bullet" component={StartupScreen} />
+        </Startup.Navigator>
+    )
+}
+
+const AuthNav = () => {
 
     const auth = useSelector((state: IApplicationState) => state.auth.isAuth)
+
     return (
         <Stack.Navigator screenOptions={{
             headerTitleStyle: {
                 fontFamily: "shabnam",
-                color: APP_CONST.colors.primary
+                color: APP_CONST.colors.primary,
+                textAlign: "left"
             }
         }}>
-        {auth ? (
-             <Stack.Screen name="BULLET" component={MainPage} />
-        ) : (
-            <React.Fragment>
-                <Stack.Screen name="Login" component={LoginScreen} options={{
-                title: "ورود"
+            <Stack.Screen name="Login" component={LoginScreen} options={{
+                title: "Bullet"
             }} />
             <Stack.Screen name="Register" component={RegisterScreen} options={{
                 title: "ثبت نام"
             }} />
-            </React.Fragment>
-            )}
-        
-      </Stack.Navigator>
+
+        </Stack.Navigator>
+    )
+}
+const MainNav = () => {
+    
+    const auth = useSelector((state: IApplicationState) => state.auth)
+    return (
+        <MainStack.Navigator>
+            {!auth.authChecking && <MainStack.Screen name="Start" component={StartupStack} />}
+            {!auth.isAuth && auth.authChecking && <MainStack.Screen name="Auth" component={AuthNav} />}
+            {auth.isAuth && <MainStack.Screen name="Home" component={MainPage} options={{
+                            title: "BULLET"
+                        }} />}
+        </MainStack.Navigator>
     )
 }
 
