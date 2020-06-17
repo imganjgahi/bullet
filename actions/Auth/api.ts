@@ -1,5 +1,6 @@
  import { URL_GENERAL, URL_API } from "../../utils/constants/GConst"
-import axios from 'axios'
+
+ import axios from '../../AxiosConfig';
 import { LoginType } from "./model"
 const authUrl = URL_GENERAL + URL_API 
 

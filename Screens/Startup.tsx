@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, AsyncStorage } from 'react-n
 import { APP_CONST } from '../utils/constants/AppConst';
 import { useDispatch } from 'react-redux';
 import { AuthActions } from '../actions/Auth/action';
-
+import axios from "../AxiosConfig";
 interface IProps {
     navigation: any
 }
@@ -14,6 +14,7 @@ const StartupScreen = (props: IProps) => {
         const checkforAuth = async () => {
             const isAuth = await AsyncStorage.getItem("bullet")
             if(isAuth){
+                axios.defaults.headers.common['Authorization'] = isAuth 
                 dispatch(AuthActions.setIsAuth(true))
             } else {
                 dispatch(AuthActions.setIsAuth(false))

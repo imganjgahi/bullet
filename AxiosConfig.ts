@@ -9,12 +9,6 @@ let AxiosInstance = Axios.create({
 
 AxiosInstance.interceptors.request.use(
   config => {
-      const token = AsyncStorage.getItem('bullet');
-      console.log("axios")
-      if (token) {
-        console.log("token")
-        config.headers['Authorization'] = token;
-      }
       return config;
   },
   error => {
