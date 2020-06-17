@@ -14,7 +14,7 @@ export type LoginType = {
 
 export interface IAuthState {
     isAuth: boolean;
-    login: {
+    authAction: {
         loading: boolean;
         open: boolean;
     }

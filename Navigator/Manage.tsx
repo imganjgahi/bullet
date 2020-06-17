@@ -23,13 +23,15 @@ const MainNav = () => {
         {auth ? (
              <Stack.Screen name="BULLET" component={MainPage} />
         ) : (
-            <Stack.Screen name="Login" component={LoginScreen} options={{
+            <React.Fragment>
+                <Stack.Screen name="Login" component={LoginScreen} options={{
                 title: "ورود"
             }} />
-            )}
             <Stack.Screen name="Register" component={RegisterScreen} options={{
                 title: "ثبت نام"
             }} />
+            </React.Fragment>
+            )}
         
       </Stack.Navigator>
     )

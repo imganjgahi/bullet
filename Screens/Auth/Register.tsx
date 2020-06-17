@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
 import { APP_CONST } from '../../utils/constants/AppConst';
 import CustomButton from '../../Components/Buttons/CustomButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AuthActions } from "../../actions/Auth/action"
+import { IApplicationState } from '../../store/state';
 interface IProps {
     navigation: any;
 }
@@ -21,6 +22,7 @@ const RegisterScreen = (props: IProps) => {
     })
     const dispatch = useDispatch()
 
+    const auth = useSelector((state:IApplicationState) => state.auth)
     const onChangeHandler = (name: string, value: string) => {
         setFormData({
             ...formData,
@@ -61,7 +63,11 @@ const RegisterScreen = (props: IProps) => {
                     onChangeText={(value) => onChangeHandler("password", value)} />
                 </View>
                 <View style={{width: "70%"}}>
+                    {auth.authAction.loading ? (
+                        <ActivityIndicator size="large" color={APP_CONST.colors.primary} />
+                    ) : (
                     <CustomButton onPress={registerHandler}> ثبت نام </CustomButton>
+                    )}
                     <TouchableOpacity style={styles.gotoLogin}
                     onPress={() => props.navigation.navigate("Login")}
                     ><Text style={styles.gotoLoginText}>

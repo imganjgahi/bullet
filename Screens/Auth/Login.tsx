@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { APP_CONST } from '../../utils/constants/AppConst';
 import CustomButton from '../../Components/Buttons/CustomButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch } from 'react-redux';
+import { AuthActions } from "../../actions/Auth/action"
 
 interface IProps {
     navigation: any;
@@ -23,9 +25,10 @@ const LoginScreen = (props: IProps) => {
             [name]: value
         })
     }
+    const dispatch = useDispatch()
     const LoginHandler = () => {
 
-        console.log("DATA: ", formData)
+       dispatch(AuthActions.loginRequest(formData))
     }
     return (
         <View style={styles.container}>
