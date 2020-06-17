@@ -36,6 +36,7 @@ export const AuthActions = {
             if(res.data){
                 //login was succeed
                 //save token on loacalStorage
+                console.log("loginRequest: ", res.data)
                 AsyncStorage.setItem("bullet", res.data.token);
                 axios.defaults.headers.common['Authorization'] = `${res.data.token}` 
                 dispatch({type: AuthActionTypes.LoginSuccess})
