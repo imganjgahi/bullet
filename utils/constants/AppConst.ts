@@ -11,4 +11,15 @@ export const  APP_CONST = {
         darkBlue: "#303960",
         lightBlue: "#0a97b0",
     },
+
+    icons: {
+        marginHorizontal: 5,
+    },
+    txtLight: {
+        fontFamily: "shabnam",
+        color: "white"
+    },
+    txtDark: {
+        fontFamily: "shabnam",
+    }
 }
