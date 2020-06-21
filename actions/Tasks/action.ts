@@ -1,14 +1,15 @@
-import { AsyncStorage } from "react-native";
-import { AppAction } from "../../store/state";
 import { TasksActionTypes } from "./actionType";
-import { ActionModel } from "./model";
 import { AuthApi } from "./api";
 import { Alert } from "react-native";
-
-export const getTaskList = (cb: any = null) => async (dispatch: any, getState: any) => {
+import { insertEvent, getEvents } from '../../utils/db';
+import { AppAction } from "../../store/state";
+import { ActionModel } from "./model";
+export const getTaskList = (cb: any = null): AppAction<ActionModel> => async (dispatch, getState) => {
     dispatch({type: TasksActionTypes.GetTasksList})
     try {
         const res = await AuthApi.getList()
+        const dbRes = await getEvents()
+        console.log("DEB: ", dbRes)
         if(res.data){
             dispatch({type: TasksActionTypes.GetTasksListSuccess, data: res.data})
             if(cb){
@@ -22,18 +23,21 @@ export const getTaskList = (cb: any = null) => async (dispatch: any, getState: a
     }
     
 }
-export const createNewTask = (data: any, cb: any) => async (dispatch: any, getState: any) => {
+export const createNewTask = (data: any, cb: any): AppAction<ActionModel> => async (dispatch, getState) => {
     dispatch({type: TasksActionTypes.CreateNewTask})
     try {
-        const res = await AuthApi.create(data)
-        if(res.data){
+        const sqRes = await insertEvent(data)
+        // const res = await AuthApi.create(data)
+        console.log("sqRes: ", sqRes)
+        if(sqRes){
             dispatch({type: TasksActionTypes.CreateNewTaskSuccess})
             getTaskList(cb)(dispatch, getState)
         }
     } catch (error) {
+        console.log("error: ", error)
         //loagin perosses faild
         dispatch({type: TasksActionTypes.CreateNewTaskFaild})
-        Alert.alert("خطا: ", error.response.data.message)
+        Alert.alert("خطا: ", error)
     }
     
 }

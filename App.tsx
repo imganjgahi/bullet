@@ -6,6 +6,14 @@ import configureStore from "./store/configStore";
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import Navigator from './Navigator/Manage';
+import { init } from "./utils/db";
+
+init().then(() => {
+  console.log(" DB Initial successfuly")
+}).catch(err => {
+  console.log("initial db faild.")
+  console.log(err)
+})
 const initialState = {}
 const store = configureStore(initialState);
 

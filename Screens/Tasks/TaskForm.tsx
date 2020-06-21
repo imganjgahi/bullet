@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Switch } from 'react-native';
 import { APP_CONST } from '../../utils/constants/AppConst';
 import CustomButton from '../../Components/Buttons/CustomButton';
 import Calendar from '../../Components/Calendar/Main';
@@ -7,25 +7,19 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewTask } from '../../actions/Tasks/action';
 import { IApplicationState } from '../../store/state';
+import { IEventData } from '../../utils/db';
 
-
-
-interface IFormData {
-  title: string;
-  description: string;
-  startDate: Date;
-  endDate: Date;
-  label: string;
-  categoryId: string;
-}
 const TaskFormScreen = (props: any) => {
-  const [formData, setFormData] = React.useState<IFormData>({
+  const [formData, setFormData] = React.useState<IEventData>({
       title: "",
       description: "",
-      startDate: new Date(),
-      endDate:  new Date(),
-      label: "",
-      categoryId: ""
+      start: "",
+      end:  "",
+      color: "",
+      allDayRepeat: false,
+      repeatType: 0,
+      lat: 125.50,
+      lng: 125.50,
     })
   const onChangeHandler = (name: string, value: any) => {
       setFormData({
@@ -38,7 +32,9 @@ const TaskFormScreen = (props: any) => {
   const dispatch = useDispatch();
   const tasks = useSelector((state: IApplicationState) => state.tasks)
   const onOk = () => {
-    dispatch(createNewTask(formData, () => {
+      const data: any = formData;
+      data.allDayRepeat = formData.allDayRepeat ? 1 : 0;
+    dispatch(createNewTask(data, () => {
         props.navigation.navigate("Tasks")
     }))
   }
@@ -67,32 +63,41 @@ const TaskFormScreen = (props: any) => {
                     onChangeText={(value) => onChangeHandler("description", value)} />
                 </View>
                 <View style={styles.formGroup}>
+                    <Text style={styles.label}>همه روزه</Text>
+                    <Switch 
+                    value={formData.allDayRepeat}
+                    onValueChange={(value) => {
+                        onChangeHandler("allDayRepeat", value)
+                    }}/>
+                </View>
+                <View style={styles.formGroup}>
                     <Text style={styles.label}>تاریخ شروع</Text>
                     <Calendar
                     onChange={(value) => {
-                      onChangeHandler("startDate", value.date) }} />
+                      onChangeHandler("start", value.date.toISOString()) }} />
                 </View>
                 <View style={styles.formGroup}>
                     <Text style={styles.label}>تاریخ پایان</Text>
                     <Calendar
                     onChange={(value) => {
-                      onChangeHandler("endDate", value.date) }} />
+                      onChangeHandler("end", value.date.toISOString()) }} />
                 </View>
                 <View style={styles.formGroup}>
-                    <Text style={styles.label}>زیر شاخه</Text>
+                    <Text style={styles.label}>تکرار</Text>
                     <TextInput 
                     style={styles.txtInput} 
-                    value={formData.categoryId}
+                    value={""+formData.repeatType}
                     returnKeyType= "next" 
-                    onChangeText={(value) => onChangeHandler("categoryId", value)} />
+                    onChange={(value) => {
+                      onChangeHandler("repeatType", value) }} />
                 </View>
                 <View style={styles.formGroup}>
-                    <Text style={styles.label}> برچسب </Text>
+                    <Text style={styles.label}> رنگ </Text>
                     <TextInput 
                     style={styles.txtInput} 
-                    value={formData.label}
+                    value={formData.color}
                     returnKeyType= "next" 
-                    onChangeText={(value) => onChangeHandler("label", value)} />
+                    onChangeText={(value) => onChangeHandler("color", value)} />
                 </View>
                 <View style={{width: "70%"}}>
                     {tasks.loading ? <ActivityIndicator color="blue" /> : 

@@ -10,6 +10,8 @@ import StartupScreen from '../Screens/Startup';
 import { NavigationContainer } from '@react-navigation/native';
 import TaskFormScreen from '../Screens/Tasks/TaskForm';
 import TaskListScreen from '../Screens/Tasks/TasksList';
+import MonthScreen from '../Screens/CalendarView/Month/MonthScreen';
+import SwipBox from '../Components/SwipBox';
 
 
 const MainStack = createStackNavigator();
@@ -48,6 +50,8 @@ const AuthNav = () => {
 const MainNav = () => {
     return (
         <MainStack.Navigator screenOptions={navbarConfig}>
+            <MainStack.Screen name="Month" component={MonthScreen} />
+            <MainStack.Screen name="Swip" component={SwipBox} />
             <MainStack.Screen name="Home" component={MainPage} options={{
                             title: "BULLET"
                         }} />
