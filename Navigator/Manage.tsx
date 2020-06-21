@@ -12,6 +12,7 @@ import TaskFormScreen from '../Screens/Tasks/TaskForm';
 import TaskListScreen from '../Screens/Tasks/TasksList';
 import MonthScreen from '../Screens/CalendarView/Month/MonthScreen';
 import SwipBox from '../Components/SwipBox';
+import GCal from '../Screens/GCAL';
 
 
 const MainStack = createStackNavigator();
@@ -50,7 +51,13 @@ const AuthNav = () => {
 const MainNav = () => {
     return (
         <MainStack.Navigator screenOptions={navbarConfig}>
-            <MainStack.Screen name="Month" component={MonthScreen} />
+            <MainStack.Screen name="GCal" component={GCal} />
+            <MainStack.Screen name="Month" component={MonthScreen} options={{
+                headerShown: false,
+                headerTitleStyle: {
+                    textAlign: "left"
+                }
+            }} />
             <MainStack.Screen name="Swip" component={SwipBox} />
             <MainStack.Screen name="Home" component={MainPage} options={{
                             title: "BULLET"
